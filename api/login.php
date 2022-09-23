@@ -12,17 +12,19 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-if (empty($_POST['mobile'])) {
-    $response['success'] = false;
-    $response['message'] = "Mobile is Empty";
-    print_r(json_encode($response));
-    return false;
+if (!empty($_POST['mobile'])) {
+    $mobile = $db->escapeString($_POST['mobile']);
+    $sql = "SELECT * FROM users WHERE mobile ='$mobile'";
+    $db->sql($sql);
+    $res = $db->getResult();
 }
+if (!empty($_POST['email'])) {
+    $email = $db->escapeString($_POST['email']);
+    $sql = "SELECT * FROM users WHERE email ='$email'";
+    $db->sql($sql);
+    $res = $db->getResult();
 
-$mobile = $db->escapeString($_POST['mobile']);
-$sql = "SELECT * FROM users WHERE mobile ='$mobile'";
-$db->sql($sql);
-$res = $db->getResult();
+}
 $num = $db->numRows($res);
 if ($num == 1){
     $response['success'] = true;

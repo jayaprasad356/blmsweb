@@ -26,7 +26,6 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1) {
-   
     $response['success'] = true;
     $response['message'] = "Banks listed Successfully";
     $response['total'] = $num;
