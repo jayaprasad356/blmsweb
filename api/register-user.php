@@ -26,12 +26,6 @@ if (empty($_POST['dob'])) {
     return false;
 }
 
-if (empty($_POST['mobile'])) {
-    $response['success'] = false;
-    $response['message'] = "Mobile Number is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['gender'])) {
     $response['success'] = false;
     $response['message'] = "Gender is Empty";
@@ -59,13 +53,24 @@ $gender = $db->escapeString($_POST['gender']);
 $bank = $db->escapeString($_POST['bank']);
 $address = $db->escapeString($_POST['address']);
 
-$sql = "SELECT * FROM users WHERE mobile = '$mobile'";
-$db->sql($sql);
-$res = $db->getResult();
+
+if (!empty($_POST['mobile'])) {
+    $mobile = $db->escapeString($_POST['mobile']);
+    $sql = "SELECT * FROM users WHERE mobile ='$mobile'";
+    $db->sql($sql);
+    $res = $db->getResult();
+}
+if (!empty($_POST['email'])) {
+    $email = $db->escapeString($_POST['email']);
+    $sql = "SELECT * FROM users WHERE email ='$email'";
+    $db->sql($sql);
+    $res = $db->getResult();
+
+}
 $num = $db->numRows($res);
 if ($num == 1) {
     $response['success'] = false;
-    $response['message'] ="Mobile Number Already Exists";
+    $response['message'] ="User Already Exists";
     print_r(json_encode($response));
     return false;
 }
