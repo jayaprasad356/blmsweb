@@ -12,7 +12,7 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM bank_cmp_cat GROUP BY company_name";
+$sql = "SELECT * FROM bank_cmp_cat LIMIT 0,2000";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
