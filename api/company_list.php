@@ -11,14 +11,16 @@ include_once('../includes/crud.php');
 
 $db = new Database();
 $db->connect();
-
-$sql = "SELECT * FROM bank_cmp_cat LIMIT 0,100000";
+$offset = $db->escapeString($_POST['offset']);
+$limit = $db->escapeString($_POST['limit']);
+$sql = "SELECT * FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id LIMIT $offset,$limit";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1) {
     $response['success'] = true;
     $response['message'] = "Company listed Successfully";
+    $response['total'] = $num;
     $response['data'] = $res;
     print_r(json_encode($response));
 
