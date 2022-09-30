@@ -19,8 +19,6 @@ if (empty($_POST['company_name'])) {
     return false;
 }
 $company_name = $db->escapeString($_POST['company_name']);
-
-
 $sql = "SELECT * FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND company_name = '$company_name'LIMIT 25";
 $db->sql($sql);
 $res = $db->getResult();
