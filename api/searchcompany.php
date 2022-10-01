@@ -19,7 +19,7 @@ if (empty($_POST['company_name'])) {
     return false;
 }
 $company_name = $db->escapeString($_POST['company_name']);
-$sql=" SELECT * FROM bank_cmp_cat WHERE company_name like '%".$company_name."%' ORDER BY company_name DESC LIMIT 20 ";
+$sql=" SELECT * FROM bank_cmp_cat WHERE company_name like '%".$company_name."%' GROUP BY company_name ORDER BY company_name DESC LIMIT 20 ";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
