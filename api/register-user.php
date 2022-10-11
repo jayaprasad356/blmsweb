@@ -75,7 +75,7 @@ if ($num == 1) {
     return false;
 }
 else{
-    $sql = "INSERT INTO users (`name`,`dob`,`email`,`mobile`,`gender`,`bank`,`address`)VALUES('$name','$dob','$email','$mobile','$bank','$gender','$address')";
+    $sql = "INSERT INTO users (`name`,`dob`,`email`,`mobile`,`gender`,`bank`,`address`)VALUES('$name','$dob','$email','$mobile','$gender','$bank','$address')";
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE mobile = '$mobile'";
     $db->sql($sql);

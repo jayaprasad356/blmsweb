@@ -12,20 +12,41 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-
+if (empty($_POST['bank'])) {
+    $response['success'] = false;
+    $response['message'] = "Bank is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+$bank = $db->escapeString($_POST['bank']);
 if(isset($_POST['offset']) && isset($_POST['limit']) ){
     $offset = $db->escapeString($_POST['offset']);
     $limit = $db->escapeString($_POST['limit']);
-    $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id LIMIT $offset,$limit";
-    //$sql = "SELECT SQL_NO_CACHE id,company_name,cat,bank_name FROM bank_cmp_cat ORDER BY id DESC LIMIT $offset,$limit";
+
+    if($bank == 'all'){
+        $sql = "SELECT COUNT(bank_cmp_cat.id) AS total FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $total = $res[0]['total'];
+        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id LIMIT $offset,$limit";
     
+    }
+    else{
+        $sql = "SELECT COUNT(bank_cmp_cat.id) AS total FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.bank_name = '$bank'";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $total = $res[0]['total'];
+        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.bank_name = '$bank' LIMIT $offset,$limit";
+    
+
+    }
     $db->sql($sql);
     $res = $db->getResult();
     $num = $db->numRows($res);
     if ($num >= 1) {
         $response['success'] = true;
         $response['message'] = "Company listed Successfully";
-        $response['total'] = $num;
+        $response['total'] = $total;
         $response['data'] = $res;
         print_r(json_encode($response));
 
