@@ -32,12 +32,6 @@ if (empty($_POST['dob'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['mobile'])) {
-    $response['success'] = false;
-    $response['message'] = "Mobile is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['address'])) {
     $response['success'] = false;
     $response['message'] = "Address is Empty";
@@ -60,8 +54,6 @@ if (empty($_POST['gender'])) {
 $user_id = $db->escapeString($_POST['user_id']);
 $name = $db->escapeString($_POST['name']);
 $dob = $db->escapeString($_POST['dob']);
-$mobile = $db->escapeString($_POST['mobile']);
-$email = $db->escapeString($_POST['email']);
 $address = $db->escapeString($_POST['address']);
 $gender = $db->escapeString($_POST['gender']);
 $bank = $db->escapeString($_POST['bank']);
@@ -71,13 +63,13 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
-    $sql = "UPDATE users SET name='$name',dob='$dob',gender='$gender',email='$email',address='$address',mobile='$mobile',bank='$bank' WHERE id=" . $user_id;
+    $sql = "UPDATE users SET name='$name',dob='$dob',gender='$gender',address='$address',bank='$bank' WHERE id=" . $user_id;
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE id=" . $user_id;
     $db->sql($sql);
     $res = $db->getResult();
     $response['success'] = true;
-    $response['message'] = "User Updated Successfully";
+    $response['message'] = "Profile Updated Successfully";
     $response['data'] = $res;
     print_r(json_encode($response));
     return false;
