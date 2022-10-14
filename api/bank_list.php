@@ -18,15 +18,15 @@ if (empty($_POST['company_name'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['bank'])) {
+if (empty($_POST['bank_id'])) {
     $response['success'] = false;
-    $response['message'] = "Bank is Empty";
+    $response['message'] = "Bank Id is Empty";
     print_r(json_encode($response));
     return false;
 }
-$bank = $db->escapeString($_POST['bank']);
+$bank_id = $db->escapeString($_POST['bank_id']);
 $company_name = $db->escapeString($_POST['company_name']);
-$sql = "SELECT bank_cmp_cat.id,bank_cmp_cat.cat,bank_cmp_cat.remarks,banks.bank_name FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND bank_cmp_cat.company_name = '$company_name' AND banks.bank_name = '$bank' LIMIT 25";
+$sql = "SELECT bank_cmp_cat.id,bank_cmp_cat.cat,bank_cmp_cat.remarks,banks.bank_name FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND bank_cmp_cat.company_name = '$company_name' AND banks.id = '$bank_id' LIMIT 25";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

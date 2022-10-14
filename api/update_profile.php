@@ -38,9 +38,9 @@ if (empty($_POST['address'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['bank'])) {
+if (empty($_POST['bank_id'])) {
     $response['success'] = false;
-    $response['message'] = "Bank Name is Empty";
+    $response['message'] = "Bank Id is Empty";
     print_r(json_encode($response));
     return false;
 }
@@ -56,14 +56,14 @@ $name = $db->escapeString($_POST['name']);
 $dob = $db->escapeString($_POST['dob']);
 $address = $db->escapeString($_POST['address']);
 $gender = $db->escapeString($_POST['gender']);
-$bank = $db->escapeString($_POST['bank']);
+$bank_id = $db->escapeString($_POST['bank_id']);
 
 $sql = "SELECT * FROM users WHERE id=" . $user_id;
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
-    $sql = "UPDATE users SET name='$name',dob='$dob',gender='$gender',address='$address',bank='$bank' WHERE id=" . $user_id;
+    $sql = "UPDATE users SET name='$name',dob='$dob',gender='$gender',address='$address',bank_id='$bank_id' WHERE id=" . $user_id;
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE id=" . $user_id;
     $db->sql($sql);

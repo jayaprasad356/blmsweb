@@ -12,18 +12,18 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-if (empty($_POST['bank'])) {
+if (empty($_POST['bank_id'])) {
     $response['success'] = false;
     $response['message'] = "Bank is Empty";
     print_r(json_encode($response));
     return false;
 }
-$bank = $db->escapeString($_POST['bank']);
+$bank_id = $db->escapeString($_POST['bank_id']);
 if(isset($_POST['offset']) && isset($_POST['limit']) ){
     $offset = $db->escapeString($_POST['offset']);
     $limit = $db->escapeString($_POST['limit']);
 
-    if($bank == 'all'){
+    if($bank_id == 'all'){
         $sql = "SELECT COUNT(bank_cmp_cat.id) AS total FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id";
         $db->sql($sql);
         $res = $db->getResult();
@@ -32,11 +32,11 @@ if(isset($_POST['offset']) && isset($_POST['limit']) ){
     
     }
     else{
-        $sql = "SELECT COUNT(bank_cmp_cat.id) AS total FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.bank_name = '$bank'";
+        $sql = "SELECT COUNT(bank_cmp_cat.id) AS total FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.id = '$bank_id'";
         $db->sql($sql);
         $res = $db->getResult();
         $total = $res[0]['total'];
-        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.bank_name = '$bank' LIMIT $offset,$limit";
+        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.id = '$bank_id' LIMIT $offset,$limit";
     
 
     }

@@ -18,28 +18,18 @@ if (empty($_POST['company_name'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['bank'])) {
+if (empty($_POST['bank_id'])) {
     $response['success'] = false;
-    $response['message'] = "Bank is Empty";
+    $response['message'] = "Bank Id is Empty";
     print_r(json_encode($response));
     return false;
 }
 $company_name = $db->escapeString($_POST['company_name']);
-$bank = $db->escapeString($_POST['bank']);
-if($bank == 'all'){
+$bank_id = $db->escapeString($_POST['bank_id']);
+if($bank_id == 'all'){
     $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE company_name like '".$company_name."%' GROUP BY company_name ORDER BY company_name DESC LIMIT 20 ";
 }
 else{
-    $sql=" SELECT id FROM banks WHERE bank_name = '$bank'";
-    $db->sql($sql);
-    $res = $db->getResult();
-    $num = $db->numRows($res);
-    if ($num >= 1) {
-        $bank_id = $res[0]['id'];
-    }else{
-        $bank_id = 0;
-
-    }
     $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE bank_name = $bank_id AND company_name like '".$company_name."%' GROUP BY company_name ORDER BY company_name DESC LIMIT 20 ";
 
 

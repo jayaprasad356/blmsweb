@@ -32,9 +32,9 @@ if (empty($_POST['gender'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['bank'])) {
+if (empty($_POST['bank_id'])) {
     $response['success'] = false;
-    $response['message'] = "Bank Name is Empty";
+    $response['message'] = "Bank Id is Empty";
     print_r(json_encode($response));
     return false;
 }
@@ -50,7 +50,7 @@ $dob = $db->escapeString($_POST['dob']);
 $mobile = $db->escapeString($_POST['mobile']);
 $email = $db->escapeString($_POST['email']);
 $gender = $db->escapeString($_POST['gender']);
-$bank = $db->escapeString($_POST['bank']);
+$bank_id = $db->escapeString($_POST['bank_id']);
 $address = $db->escapeString($_POST['address']);
 
 
@@ -75,7 +75,7 @@ if ($num == 1) {
     return false;
 }
 else{
-    $sql = "INSERT INTO users (`name`,`dob`,`email`,`mobile`,`gender`,`bank`,`address`)VALUES('$name','$dob','$email','$mobile','$gender','$bank','$address')";
+    $sql = "INSERT INTO users (`name`,`dob`,`email`,`mobile`,`gender`,`bank_id`,`address`)VALUES('$name','$dob','$email','$mobile','$gender','$bank_id','$address')";
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE mobile = '$mobile'";
     $db->sql($sql);
