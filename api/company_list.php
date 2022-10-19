@@ -28,7 +28,7 @@ if(isset($_POST['offset']) && isset($_POST['limit']) ){
         $db->sql($sql);
         $res = $db->getResult();
         $total = $res[0]['total'];
-        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id LIMIT $offset,$limit";
+        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id ORDER BY bank_cmp_cat.id LIMIT $offset,$limit";
     
     }
     else{
@@ -36,7 +36,7 @@ if(isset($_POST['offset']) && isset($_POST['limit']) ){
         $db->sql($sql);
         $res = $db->getResult();
         $total = $res[0]['total'];
-        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.id = '$bank_id' LIMIT $offset,$limit";
+        $sql = "SELECT SQL_NO_CACHE bank_cmp_cat.id,bank_cmp_cat.company_name,bank_cmp_cat.cat,banks.bank_name,bank_cmp_cat.remarks FROM bank_cmp_cat,banks WHERE bank_cmp_cat.bank_name=banks.id AND banks.id = '$bank_id' ORDER BY bank_cmp_cat.id LIMIT $offset,$limit";
     
 
     }

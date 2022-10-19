@@ -27,10 +27,10 @@ if (empty($_POST['bank_id'])) {
 $company_name = $db->escapeString($_POST['company_name']);
 $bank_id = $db->escapeString($_POST['bank_id']);
 if($bank_id == 'all'){
-    $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE company_name like '".$company_name."%' GROUP BY company_name ORDER BY company_name DESC LIMIT 20 ";
+    $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE company_name like '".$company_name."%' GROUP BY company_name ORDER BY id LIMIT 20 ";
 }
 else{
-    $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE bank_name = $bank_id AND company_name like '".$company_name."%' GROUP BY company_name ORDER BY company_name DESC LIMIT 20 ";
+    $sql=" SELECT id,company_name FROM bank_cmp_cat WHERE bank_name = $bank_id AND company_name like '".$company_name."%' GROUP BY company_name ORDER BY id LIMIT 20 ";
 
 
 }
