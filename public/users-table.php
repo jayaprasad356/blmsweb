@@ -1,9 +1,9 @@
 
 <section class="content-header">
     <h1>Users /<small><a href="home.php"><i class="fa fa-home"></i> Home</a></small></h1>
-    <ol class="breadcrumb">
+    <!-- <ol class="breadcrumb">
         <a class="btn btn-block btn-default" href="add-user.php"><i class="fa fa-plus-square"></i> Add New User</a>
-    </ol>
+    </ol> -->
 </section>
 
     <!-- Main content -->

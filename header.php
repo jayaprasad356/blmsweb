@@ -164,12 +164,12 @@ $fn = new custom_functions;
                         <span>Users</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="notifications.php">
                         <i class="fa fa-bell"></i>
                         <span>Notifications</span>
                     </a>
-                </li>
+                </li> -->
             
             </ul>
             </section>

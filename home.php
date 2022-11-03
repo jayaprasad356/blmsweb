@@ -42,6 +42,24 @@ include "header.php";
             </ol>
         </section>
         <section class="content">
+            <div class="row">
+                <div class="col-lg-4 col-xs-6">
+                    <div class="small-box bg-blue">
+                        <div class="inner">
+                        <h3><?php
+                            $sql = "SELECT * FROM users";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $num = $db->numRows($res);
+                            echo $num;
+                             ?></h3>
+                            <p>Users</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-bullseye"></i></div>
+                        <a href="users.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
            
 
         </section>

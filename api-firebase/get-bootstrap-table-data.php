@@ -94,10 +94,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
         $tempRow['email'] = $row['email'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['gender'] = $row['gender'];
-        $tempRow['bank'] = $row['bank'];
+        $tempRow['bank'] = $row['bank_id'];
         $tempRow['address'] = $row['address'];
-        if(!empty($row['image'])){
-            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
+        $bank_id = $row['bank_id'];
+        if($row['bank_id'] != 'all'){
+            $sql = "SELECT * FROM `banks` WHERE id = '$bank_id'";
+            $db->sql($sql);
+            $res = $db->getResult();
+            $tempRow['bank'] =$res[0]['bank_name'];
 
         }else{
             $tempRow['image'] = 'No Image';

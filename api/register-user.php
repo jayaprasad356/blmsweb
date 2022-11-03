@@ -54,19 +54,10 @@ $bank_id = $db->escapeString($_POST['bank_id']);
 $address = $db->escapeString($_POST['address']);
 
 
-if (!empty($_POST['mobile'])) {
-    $mobile = $db->escapeString($_POST['mobile']);
-    $sql = "SELECT * FROM users WHERE mobile ='$mobile'";
-    $db->sql($sql);
-    $res = $db->getResult();
-}
-if (!empty($_POST['email'])) {
-    $email = $db->escapeString($_POST['email']);
-    $sql = "SELECT * FROM users WHERE email ='$email'";
-    $db->sql($sql);
-    $res = $db->getResult();
-
-}
+$mobile = $db->escapeString($_POST['mobile']);
+$sql = "SELECT * FROM users WHERE mobile ='$mobile'";
+$db->sql($sql);
+$res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
     $response['success'] = false;
