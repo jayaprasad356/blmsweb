@@ -5,7 +5,7 @@ include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 
 
-if (isset($_POST['btnAdd'])) {
+if (isset($_POST['btnsAdd'])) {
 
 
         $title = $db->escapeString($_POST['title']);
@@ -62,7 +62,7 @@ if (isset($_POST['btnAdd'])) {
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form name="add_notification"  method="post" enctype="multipart/form-data">
+                <form id='notification_form' method="post" action="send-multiple-push.php" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <div class="row">
@@ -91,11 +91,48 @@ if (isset($_POST['btnAdd'])) {
                     </div>
 
                 </form>
+                <div id="result"></div>
 
             </div><!-- /.box -->
         </div>
     </div>
 </section>
-
 <div class="separator"> </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script>
+    $('#department').select2({
+        width: 'element',
+        placeholder: 'Type in department to search',
+
+    });
+    $('#batch').select2({
+        width: 'element',
+        placeholder: 'Type in batch to search',
+
+    });
+    $('#notification_form').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+
+                    $('#result').html(result.message);
+                    $('#result').show().delay(6000).fadeOut();
+                    $('#notification_form').each(function() {
+                        this.reset();
+                    });
+                    
+                }
+            });
+
+        });
+</script>
 <?php $db->disconnect(); ?>

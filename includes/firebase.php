@@ -27,10 +27,10 @@ class Firebase {
         // firebase server url to send the curl request
         $url = 'https://fcm.googleapis.com/fcm/send';
         
-        $sql="SELECT value FROM settings WHERE variable='fcm_server_key'";
-        $this->db->sql($sql);
-        $res = $this->db->getResult();
-        define("FIREBASE_API_KEY",$res[0]['value']);
+        // $sql="SELECT value FROM settings WHERE variable='fcm_server_key'";
+        // $this->db->sql($sql);
+        // $res = $this->db->getResult();
+        define("FIREBASE_API_KEY","AAAAK4JlzoU:APA91bGMw4BZh3PA_4lWueWgF8Rf5PQVwhVIDg5qOvcdl9oUwe7D1-Oa_wg--sLYJYsnAm1E5Zeagt6nIeF2G5S97hwdZLyHJdekZuN4uKg3HcUFaovJy_91J4CTnijn9SQ75iSv2MQh");
         
         //building headers for the request
         $headers = array(
