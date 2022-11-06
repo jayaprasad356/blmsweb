@@ -63,6 +63,12 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
+    $updated_bank_id = $res[0]['bank_id'];
+    if($updated_bank_id != $bank_id){
+        $sql = "UPDATE users SET last_updated_on=NULL WHERE id=" . $user_id;
+        $db->sql($sql);
+
+    }
     $sql = "UPDATE users SET name='$name',dob='$dob',gender='$gender',address='$address',bank_id='$bank_id' WHERE id=" . $user_id;
     $db->sql($sql);
     $sql = "SELECT * FROM users WHERE id=" . $user_id;
