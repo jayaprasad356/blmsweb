@@ -8,7 +8,7 @@ $fn = new custom_functions;
 if (isset($_POST['btnLogin'])) {
 
     // get email and password
-    $mobile = $db->escapeString($_POST['mobile']);
+    $email = $db->escapeString($_POST['email']);
     $password = $db->escapeString($_POST['password']);
 
     // set time for session timeout
@@ -19,8 +19,8 @@ if (isset($_POST['btnLogin'])) {
     $error = array();
 
     // check whether $email is empty or not
-    if (empty($mobile)) {
-        $error['mobile'] = "*Email should be filled.";
+    if (empty($email)) {
+        $error['email'] = "*Email should be filled.";
     }
 
     // check whether $password is empty or not
@@ -29,11 +29,16 @@ if (isset($_POST['btnLogin'])) {
     }
 
     // if email and password is not empty, check in database
-    if (!empty($mobile) && !empty($password)) {
-        if($mobile == '9876543210' && $password == 'admin123'){
+    if (!empty($email) && !empty($password)) {
+        $password = md5($password);
+        $sql = "SELECT * FROM admin WHERE email ='$email' AND password = '$password'";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $num = $db->numRows($res);
+        if ($num == 1){
             $_SESSION['id'] = '1';
             $_SESSION['role'] ='admin';
-            $_SESSION['username'] = 'username';
+            $_SESSION['username'] = 'loanzones';
             $_SESSION['email'] = 'admin@gmail.com';
             $_SESSION['timeout'] = $currentTime + $expired;
             header("location: home.php");
@@ -64,12 +69,12 @@ if (isset($_POST['btnLogin'])) {
             <form method="post" enctype="multipart/form-data">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Mobile :</label>
-                        <input type="number" name="mobile" class="form-control" value="<?= defined('ALLOW_MODIFICATION') && ALLOW_MODIFICATION == 0 ? '9876543210' : '' ?>" required>
+                        <label for="exampleInputEmail1">Email :</label>
+                        <input type="text" name="email" class="form-control" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Password :</label>
-                        <input type="password" class="form-control" name="password" value="<?= defined('ALLOW_MODIFICATION') && ALLOW_MODIFICATION == 0 ? 'admin123' : '' ?>" required>
+                        <input type="password" class="form-control" name="password" value="" required>
                     </div>
                     <div class="box-footer">
                         <button type="submit" name="btnLogin" class="btn btn-info pull-left">Login</button>

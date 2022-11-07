@@ -61,15 +61,13 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE name like '%" . $search . "%' OR mobile like '%" . $search . "%'  OR email like '%" . $search . "%'  OR address like '%" . $search . "%'  OR bank like '%" . $search . "%'";
+        $where .= "WHERE name like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
-
     }
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
-
     }        
     $sql = "SELECT COUNT(`id`) as total FROM `users`" . $where;
     $db->sql($sql);

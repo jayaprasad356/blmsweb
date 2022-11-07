@@ -128,8 +128,7 @@ $fn = new custom_functions;
                                     <li class="user-header">
                                         <img src="images/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            Admin
-                                            <small>admin@gmail.com</small>
+                                            Loanzones
                                         </p>
                                     </li>
                                     <li class="user-footer">
@@ -168,6 +167,12 @@ $fn = new custom_functions;
                     <a href="notifications.php">
                         <i class="fa fa-bell"></i>
                         <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="settings.php">
+                        <i class="fa fa-bullseye"></i>
+                        <span>Settings</span>
                     </a>
                 </li>
             
