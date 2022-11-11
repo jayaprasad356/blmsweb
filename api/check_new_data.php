@@ -25,7 +25,18 @@ $num = $db->numRows($res);
 if ($num == 1) {
     $last_updated_on = $res[0]['last_updated_on'];
     $bank_id = $res[0]['bank_id'];
+    $sql = "SELECT COUNT(*) AS total FROM banks";
+    $db->sql($sql);
+    $res = $db->getResult();
+    $total = $res[0]['total'];
+    $response['banks_count'] = $total;
+
     if($bank_id != 'all'){
+        $sql = "SELECT COUNT(id) AS total FROM bank_cmp_cat";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $total = $res[0]['total'];
+        $response['companies_count'] = $total;
         $sql = "SELECT *,DATE(data_imported_on) AS data_imported_on FROM banks WHERE id = $bank_id ";
         $db->sql($sql); 
         $res = $db->getResult();
@@ -44,6 +55,11 @@ if ($num == 1) {
 
 
     }else{
+        $sql = "SELECT COUNT(id) AS total FROM bank_cmp_cat";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $total = $res[0]['total'];
+        $response['companies_count'] = $total;
         $sql = "SELECT *,DATE(data_imported_on) AS data_imported_on FROM banks WHERE data_imported_on IS NOT NULL ORDER BY data_imported_on ";
         $db->sql($sql); 
         $res = $db->getResult();
