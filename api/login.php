@@ -26,7 +26,11 @@ if (!empty($_POST['email'])) {
 
 }
 $num = $db->numRows($res);
+
 if ($num == 1){
+    $user_id = $res[0]['id'];
+    $sql = "UPDATE users SET last_updated_on=NULL WHERE id=" . $user_id;
+    $db->sql($sql);
     $response['success'] = true;
     $response['new user'] = false;
     $response['message'] = "Logged In Successfully";

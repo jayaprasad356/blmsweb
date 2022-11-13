@@ -23,7 +23,7 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
-    $date = date('Y-m-d');
+    $date = date('Y-m-d h:i:s');
     $sql = "UPDATE users SET `last_updated_on`= '$date' WHERE `id`= '$user_id'";
     $db->sql($sql);
     $response['success'] = true;

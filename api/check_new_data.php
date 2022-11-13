@@ -37,7 +37,7 @@ if ($num == 1) {
         $res = $db->getResult();
         $total = $res[0]['total'];
         $response['companies_count'] = $total;
-        $sql = "SELECT *,DATE(data_imported_on) AS data_imported_on FROM banks WHERE id = $bank_id ";
+        $sql = "SELECT * FROM banks WHERE id = $bank_id ";
         $db->sql($sql); 
         $res = $db->getResult();
         $data_imported_on = $res[0]['data_imported_on'];
@@ -60,11 +60,11 @@ if ($num == 1) {
         $res = $db->getResult();
         $total = $res[0]['total'];
         $response['companies_count'] = $total;
-        $sql = "SELECT *,DATE(data_imported_on) AS data_imported_on FROM banks WHERE data_imported_on IS NOT NULL ORDER BY data_imported_on ";
+        $sql = "SELECT * FROM banks WHERE data_imported_on IS NOT NULL AND data_imported_on > '$last_updated_on' ORDER BY data_imported_on ";
         $db->sql($sql); 
         $res = $db->getResult();
-        $data_imported_on = $res[0]['data_imported_on'];
-        if($data_imported_on >= $last_updated_on){
+        $num = $db->numRows($res);
+        if ($num >= 1) {
             $response['success'] = true;
             $response['message'] = "New Data Available";
             print_r(json_encode($response));

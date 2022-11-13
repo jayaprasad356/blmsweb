@@ -25,7 +25,7 @@ $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
     $last_updated_on = $res[0]['last_updated_on'];
-    $sql = "SELECT id FROM banks WHERE data_imported_on >= '$last_updated_on' ORDER BY data_imported_on ";
+    $sql = "SELECT id FROM banks WHERE data_imported_on > '$last_updated_on' ORDER BY data_imported_on ";
     $db->sql($sql); 
     $res = $db->getResult();
     $db->sql($sql);
