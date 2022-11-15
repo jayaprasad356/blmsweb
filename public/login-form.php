@@ -30,7 +30,7 @@ if (isset($_POST['btnLogin'])) {
 
     // if email and password is not empty, check in database
     if (!empty($email) && !empty($password)) {
-        $password = md5($password);
+        // $password = md5($password);
         $sql = "SELECT * FROM admin WHERE email ='$email' AND password = '$password'";
         $db->sql($sql);
         $res = $db->getResult();

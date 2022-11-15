@@ -28,7 +28,8 @@
                                     <th  data-field="email" data-sortable="true"> Email</th>
                                     <th  data-field="mobile" data-sortable="true"> Mobile</th>
                                     <th  data-field="gender" data-sortable="true">Gender</th>
-                                    <th  data-field="bank" data-sortable="true"> Bank</th>                                 
+                                    <th  data-field="bank" data-sortable="true"> Bank</th>
+                                    <th  data-field="bank_id" data-sortable="true"> Bank Id</th>                                                                  
                                     <th  data-field="address" data-sortable="true"> Address</th>
                                     <th data-field="image">Profile</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>

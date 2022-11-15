@@ -85,14 +85,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
     $rows = array();
     $tempRow = array();
     foreach ($res as $row) {
-
+        $operate = ' <a href="edit-user.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['dob'] = $row['dob'];
         $tempRow['email'] = $row['email'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['gender'] = $row['gender'];
-        $tempRow['bank'] = $row['bank_id'];
+        $tempRow['bank'] = $row['bank'];
         $tempRow['address'] = $row['address'];
         $bank_id = $row['bank_id'];
         if($row['bank_id'] != 'all'){
@@ -105,6 +105,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
             $tempRow['image'] = 'No Image';
 
         }
+        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
         }
     $bulkData['rows'] = $rows;
